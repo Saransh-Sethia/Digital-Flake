@@ -1,3 +1,4 @@
+const { query } = require("express");
 const Product = require("../models/Product");
 
 const createProduct = async (productData) => {
@@ -17,6 +18,16 @@ const getAllProducts = async (userId) => {
     throw error;
   }
 };
+
+const searchProducts = async(query) => {
+  try{
+    const products = await Product.find(query);
+    return products;
+  }catch(error){
+    throw error
+  }
+
+}
 
 const updateProduct = async(productId, userId, updatedData) => {
     try{
@@ -42,4 +53,4 @@ const deleteProduct = async(productId, userId) => {
     }
 }
 
-module.exports = { createProduct, getAllProducts, updateProduct, deleteProduct };
+module.exports = { createProduct, getAllProducts, updateProduct, deleteProduct, searchProducts };

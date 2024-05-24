@@ -9,6 +9,9 @@ router.post("/",authenticateToken,productController.createProduct);
 //GET All products
 router.get("/", authenticateToken, productController.getAllProducts);
 
+//GET Ctegories on searching
+router.get("/search", authenticateToken, productController.searchProducts);
+
 //UPDATE Product
 router.put("/:id", authenticateToken, productController.updateProduct);
 

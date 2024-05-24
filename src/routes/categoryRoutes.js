@@ -9,10 +9,14 @@ router.post("/", authenticateToken, categoryController.createCategory);
 //GET all tasks for Logged in users
 router.get("/", authenticateToken, categoryController.getAllCategories);
 
+//GET categories on searching
+router.get("/search",authenticateToken, categoryController.searchCategory);
+
 //UPDATE a task by ID
 router.put("/:id", authenticateToken, categoryController.updateCategory);
 
 //DELETE a task
 router.delete("/:id", authenticateToken, categoryController.deleteCategory)
+
 
 module.exports = router;

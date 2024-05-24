@@ -34,9 +34,21 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const searchProducts = async (req, res) => {
+  try {
+    const query = req.query;
+
+    const products = await productService.searchProducts(query);
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const updateProduct = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const userId = req.user.id;
     const updatedData = req.body;
 
@@ -51,20 +63,26 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const deleteProduct = async(req,res) => {
-    try{
-        const {id} = req.params;
-        const userId = req.user.id;
-    
-        const success = await productService.deleteProduct(id, userId);
-    
-        if(!success){
-            res.status(404).json({message: "Task not Found"})
-        }
-    
-        res.status(204).send();
-    } catch(error){
-        res.status(500).json({message: error.message})
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    const success = await productService.deleteProduct(id, userId);
+
+    if (!success) {
+      res.status(404).json({ message: "Task not Found" });
     }
-}
-module.exports = { createProduct, getAllProducts, updateProduct, deleteProduct };
+
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+module.exports = {
+  createProduct,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
+  searchProducts,
+};
